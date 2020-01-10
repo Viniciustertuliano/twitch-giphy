@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Viniciustertuliano/twitch-giphy#readme",
   "dependencies": {
+    "@types/node": "^13.1.6",
     "twitch-js": "^2.0.0-beta.33"
   }
 }
