@@ -1,9 +1,12 @@
-export const config = {
-    identity:{
-        username: "USERNAME",
-        password: "TOKEN"
+import { Configurations } from "./configurations";
+
+const config: Configurations = {
+    identity: {
+        username: "SEU_USARNAME",
+        token: "SEU_TOKEN"
     },
-    channels: [
-        "codigofalado"
-    ]
+    channels: ["SEU_CANAL"],
+     giphy: "TOKEN_GIPHY" // pegue aqui, https://developers.giphy.com/dashboard/
 };
+
+export default config;

@@ -3,11 +3,11 @@ Um chatbot para twitch que integra a API do GIPHY para aprender Typescript
 
 ## Must Have
 
- - [ ] - Interagir com o chat no Twitch
- - [ ] - Capturar um comando específico dos usuários (tudo que começa com '!giphy')
- - [ ] - Remover o '!giphy' e pegar o termo restante
- - [ ] - Enviar o termo restante para o GIPHY
- - [ ] - Retornar o primeiro GIP da API do GIPHY
+ - [X] - Interagir com o chat no Twitch
+ - [X] - Capturar um comando específico dos usuários (tudo que começa com '!giphy')
+ - [X] - Remover o '!giphy' e pegar o termo restante
+ - [X] - Enviar o termo restante para o GIPHY
+ - [X] - Retornar o primeiro GIP da API do GIPHY
  - [ ] - Renderizar o GIF na tela
  - [ ] - Remover o GIF da tela depois de 8 segundos
 
