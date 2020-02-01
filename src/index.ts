@@ -2,6 +2,9 @@ import Twitch from "twitch-js";
 import config from "./config/config";
 import Giphy from "giphy-api";
 import express from "express";
+import http from "http";
+import SocketIO from "socket.io";
+
 
 const giphy = Giphy(config.giphy);
 
@@ -12,7 +15,7 @@ const { api, chat, chatConstants } = new Twitch({
 
 //listen to all events 
 const log = (msg: any) => console.log(msg);
-chat.on(chatConstants.EVENTS.ALL, log);
+//chat.on(chatConstants.EVENTS.ALL, log);
 
 //connect
 chat.connect().then(() => {
@@ -48,21 +51,31 @@ chat.on("PRIVMSG", privateMessage => {
                 }
             });
 
-
-            chat.say(config.channels[0], "@" + username + ", Você quer um GIF sobre " + gif_search);
-
-        })
+        });
 
         }
         
 });
 
+// Express Stuff
+const app = express();
+const server = http.Server(app);
+const io = new SocketIO(server);
+let port = process.env.PORT || 3000;
+let users = [];
+let socket = {};
 
+server.listen(port);
 
-// express stuff
-const app = express()
-const port = 3000
+app.use(express.static("/client"));
 
-app.get('/', (req, res) => res.send('Hello World'))
+app.get('/', function(req, res){
+    res.sendFile(__dirname + "/ ../client/index.html");
+});
 
-app.listen(port, () => console.log('Exemple app listening on port ${port}!'))
+io.on('connection', function(socket){
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function(data){
+        console.log(data);
+    });
+}); 

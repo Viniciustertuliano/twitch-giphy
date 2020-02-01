@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatClient</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <h1>Teste!</h1>
+  <script src="//localhost:3000/socket.io/socket.io.js"></script>
+  <script>
+      var socket = io.connect('http://localhost:3000');
+      socket.on('new', function(data){
+          console.log(data);
+          socket.emit('my other event', { my: 'data' });
+      });
+  </script>
+</body>
+</html>
