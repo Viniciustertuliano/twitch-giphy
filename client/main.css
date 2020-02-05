@@ -1,0 +1,14 @@
+body::after{
+    content: '';
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 10;
+}
+#giphyIframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}

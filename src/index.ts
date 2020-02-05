@@ -13,6 +13,21 @@ const { api, chat, chatConstants } = new Twitch({
     username: config.identity.username
 });
 
+// Express Stuff
+const app = express();
+const server = http.Server(app);
+const io = new SocketIO(server);
+let port = process.env.PORT || 3000;
+
+server.listen(port);
+
+app.use(express.static("client"));
+
+app.get('/', function(req, res){
+    res.sendFile(__dirname + "/ ../client/index.html");
+});
+
+
 //listen to all events 
 const log = (msg: any) => console.log(msg);
 //chat.on(chatConstants.EVENTS.ALL, log);
@@ -43,6 +58,7 @@ chat.on("PRIVMSG", privateMessage => {
                 log(res);
                 if (err == null) {
                     const gif_embed = res.data.embed_url;
+                    io.emit("giphy", {gif: gif_embed,user: username, color: color });
 
                     chat.say(config.channels[0], "@" + username + ",Toma seu GIF: " + gif_embed);
 
@@ -57,25 +73,8 @@ chat.on("PRIVMSG", privateMessage => {
         
 });
 
-// Express Stuff
-const app = express();
-const server = http.Server(app);
-const io = new SocketIO(server);
-let port = process.env.PORT || 3000;
-let users = [];
-let socket = {};
-
-server.listen(port);
-
-app.use(express.static("/client"));
-
-app.get('/', function(req, res){
-    res.sendFile(__dirname + "/ ../client/index.html");
-});
-
-io.on('connection', function(socket){
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function(data){
-        console.log(data);
-    });
-}); 
+// io.on("connection", function(socket){
+//     socket.on("send_giphy", function(data){
+//         socket.emit("giphy", data); 
+//     }); 
+// }); 
